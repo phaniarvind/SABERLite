@@ -9,10 +9,9 @@ Please note that this pre-release version may contain several bugs that are acti
 # System Requirements
 * Windows (only)
 * No python installation required
-* No Energy Plus installtion required
 
 # Download
-To download the tool, please navigate to Releases and download the latest release. You are specifically trying to download the zip file called "SABERLitevx.y.z". Extract the file in your chosen directory and double click on RunSaber.exe to run the program. 
+To download the tool, please navigate to Releases and download the latest release. You are specifically trying to download the zip file called "SABERLitevx.y.z". Extract the file in your chosen directory and double click on RunSaberLite.exe to run the program. 
 
 Note: Running the tool may take several minutes, please be patient.
 
