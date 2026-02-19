@@ -17,7 +17,7 @@ This document will analyze a residential building in Lakewood, CO using the SABE
 | y1 (ft)                       | 24                        |
 | y2 (ft)                       | 0                         |
 | Exterior Wall Construction    | 2x4 insulated wood stud with brick finish                |
-| Exterior Wall Insulation Level | R-7 Fiberglass                     |
+| Exterior Wall Insulation Level | Uninsulated                     |
 | Exterior Roof Construction    | Asphalt shingles                |
 | Exterior Roof Insulation Level | R-30 Fiberglass                     |
 | Foundation Type               | Slab on Grade             |
@@ -52,21 +52,13 @@ This document will analyze a residential building in Lakewood, CO using the SABE
 | Occupancy Controls | No |
 
 # Outputs
-
-## Pre-Calibration
-  <p align="center">
-    <img src="./images/1-PreCalkWhResults.png" alt="fig1" width="70%">
-    <img src="./images/2-PreCalThermResults.png" alt="fig2" width="70%">
-    <img src="./images/3-PreCalEndUseBreakDown.png" alt="fig3" width="70%">
-    <img src="./images/4-PreCalFuelUseBreakDown.png" alt="fig4" width="70%">
-  </p>
-
-## Post-Calibration
-  <p align="center">
-    <img src="./images/5-PostCalkWhResults.png" alt="fig5" width="70%">
-    <img src="./images/6-PostCalThermResults.png" alt="fig6" width="70%">
-    <img src="./images/7-PostCalEndUseBreakDown.png" alt="fig7" width="70%">
-    <img src="./images/8-PostCalFuelUseBreakDown.png" alt="fig8" width="70%">
+<p align="center">
+    <img src="./images/1-Weather.png" alt="fig9" width="70%">
+    <img src="./images/2-TempCPT.png" alt="fig9" width="70%">
+    <img src="./images/3-DDCPT.png" alt="fig9" width="70%">
+    <img src="./images/4-EndUseBreakdown.png" alt="fig9" width="70%">
+    <img src="./images/5-kWhComparison.png" alt="fig9" width="70%">
+    <img src="./images/6-ThermComparison.png" alt="fig9" width="70%">
     </p>
 
 # Measure Evaluation
@@ -77,7 +69,6 @@ Reduce infiltration from 4.0 ACH50 to 2.0 ACH50
     <img src="./images/9-InfiltrationMeasure.png" alt="fig9" width="70%">
     </p>
 
-
 ## Insulation Level
 Increase wall insulation from R-7 to R-19
   <p align="center">
@@ -85,7 +76,7 @@ Increase wall insulation from R-7 to R-19
     </p>
 
 ## Night Setback
-Implement a night setback of 10°F for heating
+Implement a night setback of 10°F for heating for 8 hours.
   <p align="center">
     <img src="./images/11-NightSetbackMeasure.png" alt="fig11" width="70%">
     </p>
@@ -101,3 +92,4 @@ Combine all the above measures into a single package
   <p align="center">
     <img src="./images/13-MeasurePackage.png" alt="fig13" width="70%">
     </p>
+    

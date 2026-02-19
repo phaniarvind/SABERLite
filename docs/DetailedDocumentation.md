@@ -133,66 +133,56 @@ The Equipment/Lighting input has 2 screens. We shall go through them one by one.
 
 ### Electric Equipment
   <p align="center">
-    <img src="./images/13-ElectricEquipment.png" alt="fig13" width="90%">
+    <img src="./images/13-ElectricEqp_Lighting.png" alt="fig13" width="90%">
   </p>
 
-1. **Electric Equipment**: Choose the type of electric equipment your building has from the dropdown menu. Choose the closest match if your exact equipment type is not listed. You can also specify the number of units and the number hours used per week. Default values are provided. Energy Star certified equipment is more efficient than standard equipment and consume less energy. They only apply to electric equipment not gas equipment.
-2. **Miscellaneous Plug Loads**: This parameter accounts for all other electric loads in the building that are not explicitly modelled. Choose the equipments from the below and specify the number of units. If no equipment the default value should be set to 0.
-3. **Calculated Equipment Power Density**: This is the value calculated based on the inputs provided above. You may use this value to cross check with your building data if available. There may be a bug here. Please ignore for now.
+1. **Electric Equipment**: Please enter the approximate wattage rating of each electric equipment in the building. This includes appliances, plug loads, and any other electric equipment that is not part of the HVAC system. If you do not have exact values, you can estimate them based on the number of equipment and their typical wattage. If there is no electric equipment, please enter 0. If there is more than one of a particular equipment, please enter the total wattage for all of them combined. For example, if you have 10 laptops each with a wattage of 50W, you can enter 500W here. This value is also calculated internally by the program so don't worry too much about the accuracy. 
+2. **Lighting Power Density ($W/ft²$)**: Enter the value of lighting power density in watts per square foot. This is the total wattage of all the lighting fixtures in the building divided by the total floor area of the building. If you do not have exact values, you can estimate them based on the number of fixtures and their typical wattage. If there is no electric equipment, please enter 0.
+3. **Daylighting**: Choose if building has daylighting controls.
+4. **Number of hours**: The approximate number of hours the lighting is on during the day. This will be used to calculate the total lighting energy end-use for each day by: $LPD \times FloorArea \times N_h $.
 
-### Lighting
+**Note**: *Please be careful when choosing the number of hours of operation. You have to take care to ensure that the total lighting energy consumption does not exceed the baseload energy consumption from the utility data. If that happens the calculated electric equipment energy consumption will be negative and the program will crash. *
+
+
+# Run Analysis
+## Weather
   <p align="center">
-    <img src="./images/14-Lighting.png" alt="fig14" width="90%">
+    <img src="./images/14-Weather.png" alt="fig16" width="90%">
   </p>
 
-1. **Interior Lighting**: Choose the number of fixtures in each case. If no fixtures of that type are present, please enter 0. There is known bug here which is why it keeps crashing. The problem is if you leave the number of fixutres blank it crashes. If you want to change the value, select the existing value and immediately type the new value. Do not leave it blank in between.
-2. **Exterior Lighting**: Choose the number of fixtures in each case. If no fixtures of that type are present, please enter 0.
-3. **Calculated Lighting Power Density**: This is the value calculated based on the inputs provided above. You may use this value to cross check with your building data if available.
-4. **Daylighting Controls**: If your building has daylighting controls, choose *Yes* from the dropdown menu. Otherwise choose *No*.
-5. **Occupancy Controls**`: If your building has occupancy controls, choose *Yes* from the dropdown menu. Otherwise choose *No*.
+The first screen of the this section is the Weather screen. Based on the address of the building you entered in the Preferences screen, the weather file will be automatically set. 
+1. **Get Weather Data**: Click on this to fetch the weather data for your location. The data will be fetched from the internet and will be saved in your project folder. From then on it will just be read from the project folder so you don't have to worry about internet connectivity after this step. 
+2. **Set Selections**: After fetching the weather data, click on this button to set the selections for the simulation. This will set the inputs for the simulation based on the weather data and the other inputs you have provided. This step is important. It will create the baseline input file for the simulation. If you have made any changes to the inputs after this step, make sure to click on this button again to update the baseline input file before running the simulation.
 
-## Configure Simulation
-So far all the building specific inputs have been provided. Now we need to configure the simulation parameters.
-
+## Temperature Based Analysis
   <p align="center">
-    <img src="./images/15-ConfigureSimulation.png" alt="fig15" width="90%">
+    <img src="./images/15-TempBasedAnalysis.png" alt="fig16" width="90%">
   </p>
+Here you can run the temperature based change point analysis. You will click on Run Change Point Analysis to run the analysis. This will run a regression analysis to find the change points in the temperature data that correspond to the heating and cooling energy consumption. The results of the change point analysis will be saved in your project folder under * Projects > [YourProjectName]  > Results *. Sometimes the change point analysis may yield three plots one for electric heating and cooling and one for gas heating. In that case, only the gas heating and electric cooling will be shown here but the remaining one can be found in the Results folder.
 
-1. **Optimization Method**: Choose the *Run Energy Simulation* option.
-2. **Simulation Engine**: Choose *EnergyPlus* from the dropdown menu.
-3. **Set Selections**: Once all the inputs have been provided, and no blanks are left, click on *Set Selections* to save all the inputs. You will see a pop up message confirming that the selections have been set. *Set Selections* will create the Energy Plus input file (*.idf*) in the *CurrentWorkingDir* in your tool directory. You need to set selections every time you change any input in the previous screens.
-4. **Run Simulation**: After setting selections, click on *Run Simulation* to start the energy simulation. 
-5. **Auto Calibrate**: This button will calibrate the default schedules so that the simulated energy use matches the actual energy use. 
-6. **Electrify Building**: This button will allow you to change any gas equipment to electric equipment. Click on this and navigate to the Electrify Building screen and proceed.
-7. **EEM Evaluation**: This button will allow you to evaluate various energy efficiency measures (EEMs) for your building. Click on this and navigate to the EEM Evaluation screen and proceed.
-
-# Outputs
-Once the simulation is complete, you can navigate to the *Results* screen to view the results. The outputs screen will look like the following:
-
+## Degree Day Based Analysis
   <p align="center">
-    <img src="./images/16-ElectricityComparison.png" alt="fig16" width="90%">
+    <img src="./images/16-DegreeDayBasedAnalysis.png" alt="fig18" width="90%">
   </p>
 
-1. **kWh Results**: Shows the monthly end use comparison between simulated and actual electricity consumption from utility data in kWh.
-2. **Therm Results**: Shows the monthly end use comparison between simulated and actual gas consumption from utility data in Therms.
-3. **End Use Breakdown**: Shows pie charts for annual energy end-use break down of total energy and peak demand.
-4. **Fuel Use Breakdown**: Shows pie charts for annual fuel use break down of electricity and gas.
+Navigate to the Degree Day Based Analysis screen to run the degree day based change point analysis based on the Variable Base Degree Day Method. This will run a regression analysis to find the change points in the degree day data that correspond to the heating and cooling energy consumption. The results of the change point analysis will be saved in your project folder under * Projects > [YourProjectName]  > Results *.
 
-All the results will be saved in your project's directory under the *Results* folder. So *Projects>[YourProjectName]>Results>[Case]*. The Case here depends on whether you are running the calibrated case or the pre-calibrated default case. 
+## End-Use Breakdown
   <p align="center">
-    <img src="./images/17-ResultsDirectory.png" alt="fig16" width="90%">
+    <img src="./images/17-EndUseBreakdown.png" alt="fig18" width="90%">
   </p>
 
-# Electrify Building
-To electrify your building, click on the *Electrify Building* button in the *Configure Simulation* screen. This will take you to the Electrify Building screen as shown below:
+Here you find the end-use breakdown of the energy consumption for your building. This will show you the breakdown of the energy consumption by different end-uses such as heating, cooling, hot water, electric equipment, and lighting. This will be based on the change point analysis results and the inputs you have provided. The results will be saved in your project folder under * Projects > [YourProjectName]  > Results *.
 
+## Model Comparison
   <p align="center">
-    <img src="./images/18-ElectrifyBuilding.png" alt="fig18" width="90%">
+    <img src="./images/18-ModelComparison.png" alt="fig17" width="90%">
   </p>
 
-The *Baseline Building Metrics* should appear automatically if you click *Electrify Building* from the *Configure Simulation* screen after running a simulation. If not, please ensure that you have run a simulation before proceeding. 
+Based on the change point analysis the best fit model will be selected for the simulation. You can compare the simulated energy consumption with the actual energy consumption from utility data in this screen for each month in electricity and natural gas. The results will be saved in your project folder under * Projects > [YourProjectName]  > Results *.
 
-To electrify the building choose your corresponding options and click on *Run Simulation* button in this page. The *Initial Cost* will be populated automatically based on your selections. The results will be saved in a new folder under *Results* directory with the name *Electrified*. You can navigate to the *Results* screen to view the electrified building results.
+
+
 
 # EEM Evaluation
 To evaluate various energy efficiency measures (EEMs) for your building, click on the *EEM Evaluation* button in the *Configure Simulation* screen. Now navigate to this screen that will have two sub-screens.
@@ -204,8 +194,8 @@ To evaluate various energy efficiency measures (EEMs) for your building, click o
   </p>
 
 Here you can choose the economic data that you will use for your EEM evaluation. You can either use the default economic data provided in the tool or you can edit these values and save them specific to your project. 
-1. **Electricity Cost ($/kWh)**: Cost of electricity in $/kWh.
-2. **Gas Cost ($/therm)**: Cost of natural gas in $/therm.
+1. **Electricity Cost (\$/kWh)**: Cost of electricity in $/kWh.
+2. **Gas Cost (\$/therm)**: Cost of natural gas in $/therm.
 3. **Discount Rate (%)**: Discount rate to be used for calculating life cycle cost (LCC).
 4. **Lifetime (yrs)**: Analysis period in years for calculating life cycle cost (LCC).
 5. **Measure Selection**: Choose the EEM you wish to examine the cost of from the dropdown menu.
@@ -216,6 +206,8 @@ Here you can choose the economic data that you will use for your EEM evaluation.
 10. **Set Cost Data**: After entering all the economic data, click on this button to save the data. Your project specific economic data will be saved in the *Projects>[YourProjectName]>CostData* folder.
 11. **Reset Cost Data**: This will reset all the economic data to default values.
 
+**Note: Irrespective of whether you choose to change anything here or not, please click on the *Set Cost Data* button to ensure that the economic data is saved in your project folder. This will be used for evaluating the EEMs in the next step.**
+
 ## Evaluate Measure
 If you have clicked on EEM Evaluation from the *Configure Simulation* screen after running a simulation, the *Baseline Building Metrics* should appear automatically. If not, please ensure that you have run a simulation before proceeding. 
 
@@ -223,7 +215,7 @@ If you have clicked on EEM Evaluation from the *Configure Simulation* screen aft
     <img src="./images/20-EEMEvaluateMeasure.png" alt="fig20" width="90%">
   </p>
 
-1. **Baseline**: From the dropdown menu choose the baseline case you wish to compare your EEM against. This will typically be the calibrated case. Similarly, the Base Property column will be populated automatically based on your selection.
+1. If you have clicked on Set Cost Data in the previous screen, the baseline tab will be automatically populated with the results from the simulation and the economic data you have entered. 
 2. **Measure Selection**: Choose the EEM you wish to examine from the dropdown menu. Click the checkbox in the Selection column to select the measure. This will automatically enable the New Property column.
 3. **New Property**: Choose the specific value for the selected EEM from the dropdown menu in the New Property column.
 4. **Evaluate**: Clicking on this button will evaluate the selected EEM and populate the fields.
@@ -232,4 +224,4 @@ If you have clicked on EEM Evaluation from the *Configure Simulation* screen aft
    - *Initial Cost ($)*: Initial cost of implementing the EEM.
    - *LCC ($)*: Life Cycle Cost of the EEM over the analysis period.
   
-You can choose more than one EEM at a time and the whole package will be evaluated. At all points, all selected measures will be evaluated as a package and the results will be shown accordingly. Each EEM case evaluated will be saved in a new folder under your project. You can find it in *Projects > [YourProjectName] > MeasureEvaluation > P0_xP1_y...P10_z*.
+You can choose more than one EEM at a time and the whole package will be evaluated. At all points, all selected measures will be evaluated as a package and the results will be shown accordingly. 
